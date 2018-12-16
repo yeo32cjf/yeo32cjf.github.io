@@ -2,18 +2,16 @@ pragma solidity ^0.4.24;
 
 contract simpleAuction {
     
-    struct voter {
-        address voterAddress;
+    struct bider {
+        address biderAddress;
         uint tokenBought;
     }
 
-    bytes32[] public highest;   //최고 입찰가 배열
-    bytes32[] public myBid;     //나의 입찰가
     
-    mapping (address => voter) public voters; // 투표자들의 주소
-    mapping (bytes32 => uint) public votesReceived; // 후보자 득표 수
+    mapping (address => bider) public biders; // 입찰자들의 정보
     
-    bytes32[] public candidateNames; // 후보자 배열
+    mapping (uint => uint) public highest;  //최고 입찰가
+    mapping (address => uint[6]) public myBid; //나의 입찰가
     
     uint public totalToken; // 토큰 총 개수
     uint public balanceTokens; // 남은 토큰 수
@@ -25,62 +23,39 @@ contract simpleAuction {
         balanceTokens = _totalToken;
         tokenPrice = _tokenPrice;
         
-        candidateNames.push("Monday");
-        candidateNames.push("Tuesday");
-        candidateNames.push("Wednesday");
-        candidateNames.push("Thursday");
-        candidateNames.push("Friday");
-        candidateNames.push("Saturday");
-        candidateNames.push("Sunday");
+        myBid[msg.sender][0] = 42;
+        myBid[msg.sender][1] = 43;
+        myBid[msg.sender][2] = 44;
+        myBid[msg.sender][3] = 45;
+        myBid[msg.sender][4] = 46;
+        myBid[msg.sender][5] = 47;
     }
     
     function buy() payable public returns (int) 
     {
         uint tokensToBuy = msg.value / tokenPrice;
         require(tokensToBuy <= balanceTokens);
-        voters[msg.sender].voterAddress = msg.sender;
-        voters[msg.sender].tokenBought += tokensToBuy;
+        biders[msg.sender].biderAddress = msg.sender;
+        biders[msg.sender].tokenBought += tokensToBuy;
         balanceTokens -= tokensToBuy;
     }
     
-    function getVotesReceivedFor() view public returns (uint, uint, uint, uint, uint, uint, uint)
+    function getHighestValue() view public returns (uint, uint, uint, uint, uint, uint)
     {
-        return (votesReceived["Monday"],
-        votesReceived["Tuesday"],
-        votesReceived["Wednesday"],
-        votesReceived["Thursday"],
-        votesReceived["Friday"],
-        votesReceived["Saturday"],
-        votesReceived["Sunday"]);
+        return (highest[0],highest[1],highest[2],highest[3],highest[4],highest[5]);
+    }
+
+    function getMyValue(address addr) view public returns (uint, uint, uint, uint, uint, uint)
+    {
+        return (myBid[0],myBid[1],myBid[2],myBid[3],myBid[4],myBid[5]);
     }
     
-    function vote(bytes32 candidateName, uint tokenCountForVote) public
+    function Auction(uint candidateName, uint tokenCountForBid) public
     {
-        uint index = getCandidateIndex(candidateName);
-        require(index != uint(-1));
+        require(tokenCountForBid <= biders[msg.sender].tokenBought);
+        require(highest[candidateName] <= biders[msg.sender].tokenBought);
         
-        require(tokenCountForVote <= voters[msg.sender].tokenBought);
-        
-        votesReceived[candidateName] += tokenCountForVote;
-        voters[msg.sender].tokenBought -= tokenCountForVote;
-    }
-    
-    function getCandidateIndex(bytes32 candidate) view public returns (uint) // 해당 후보자의 index 반환
-    {
-        for(uint i=0; i < candidateNames.length; i++)
-        {
-            if(candidateNames[i] == candidate)
-            {
-                return i;
-            }
-        }
-        
-        return uint(-1); // 후보자가 없는 경우 -1 반환
-    }
-    
-    function getCandidatesInfo() view public returns (bytes32[]) // 후보자 이름들 반환
-    {
-        return candidateNames;
+        highest[candidateName] = tokenCountForBid;
     }
     
     function getTotalToken() view public returns(uint)
@@ -100,6 +75,6 @@ contract simpleAuction {
     
     function getTokenBought() view public returns(uint)
     {
-        return voters[msg.sender].tokenBought;
+        return biders[msg.sender].tokenBought;
     }
 }

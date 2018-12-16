@@ -321,8 +321,6 @@ let abi =
 let simpleAuctionContract;
 let simpleAuction;
 let accountAddress;
-let currentEtherBalance;
-let currentTokenBalance;
 let tokenPrice;
 
 window.addEventListener('load', function() {
@@ -360,7 +358,7 @@ function getValue() {
   getEther();
   getToken();
   getTokenInfo();
-  getCandidateInfo();
+  getHighestBid();
 }
 
 function getEther() {
@@ -386,37 +384,59 @@ function getTokenInfo() {
   });
 }
 
-function getCandidateInfo() {
-  simpleAuction.getAuctionsReceivedFor(function(e,r){
-    for(let i=1;i<=r.length;i++)
+function getName(n)
+{
+	if(n==0)
+		return "iphone7";
+	else if(n==1)
+		return "iphone8";
+	else if(n==2)
+		return "iphoneX";
+	else if(n==3)
+		return "galaxyS9";
+	else if(n==4)
+		return "galaxyNote9";
+	else if(n==5)
+		return "LGG7";
+}
+
+function getHighestBid() {
+  simpleAuction.getHighestValue(function(e,r){
+    for(let i=0;i<r.length;i++)
     {
-      document.getElementById('day_Auctions_' + i).innerHTML = r[i-1].toString();
+			document.getElementById("highest_"+getName[i]).innerHTML = r[i].toString();
+    }
+	});
+	simpleAuction.getMyValue(simpleAuction.address,function(e,r){
+    for(let i=0;i<r.length;i++)
+    {
+			document.getElementById("myself_"+getName[i]).innerHTML = r[i].toString();
     }
   });
 }
 
-function AuctionForProduct(n) {
-  let candidateName = $("#candidate").val();
-  let AuctionTokens = $("#Auction-tokens").val();
-  $("#msg").html("Auction has been submitted. The Auction count will increment as soon as the Auction is recorded on the blockchain. Please wait.")
-  $("#candidate").val("");
-  $("#Auction-tokens").val("");
+function bidForProduct(n) {
 
-  simpleAuction.Auction(candidateName, AuctionTokens, function (e, r){
-    getCandidateInfo();
-  });
-}
+	let AuctionTokens = $("#tb_"+getName(n)).val();
+	let highestTokens = $("#highest_"+getName(n)).val();
+	
+	if(AuctionTokens <= highestTokens)
+	{
+		alert("최대 입찰가보다 높은 가격을 입찰하십시오.");
+	}
+	else if(AuctionTokens > $("tokenValue").val())
+	{
+		alert("토큰이 부족합니다. 토큰을 더 충전하세요.");
+	}
+	else
+	{
+		$("#msg").html("Auction has been submitted. The Auction count will increment as soon as the Auction is recorded on the blockchain. Please wait.")
+		$("#tb_"+getName(n)).val("");
 
-function AuctionForCandidate() {
-  let candidateName = $("#candidate").val();
-  let AuctionTokens = $("#Auction-tokens").val();
-  $("#msg").html("Auction has been submitted. The Auction count will increment as soon as the Auction is recorded on the blockchain. Please wait.")
-  $("#candidate").val("");
-  $("#Auction-tokens").val("");
-
-  simpleAuction.Auction(candidateName, AuctionTokens, function (e, r){
-    getCandidateInfo();
-  });
+		simpleAuction.Auction(n, AuctionTokens, function (e, r){
+			getHighestBid();
+		});
+	}
 }
 
 function buyTokens() {
