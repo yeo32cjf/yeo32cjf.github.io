@@ -47,7 +47,7 @@ contract simpleAuction {
 
     function getMyValue(address addr) view public returns (uint, uint, uint, uint, uint, uint)
     {
-        return (myBid[0],myBid[1],myBid[2],myBid[3],myBid[4],myBid[5]);
+        return (myBid[addr][0],myBid[addr][1],myBid[addr][2],myBid[addr][3],myBid[addr][4],myBid[addr][5]);
     }
     
     function Auction(uint candidateName, uint tokenCountForBid) public
