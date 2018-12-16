@@ -1,4 +1,4 @@
-let contractAddress = '0xb11e9402e0ca6b77354d2bb18680d6ea58fcde81';
+let contractAddress = '0xe17f5120cdcb0118d69a7585e57dae260f80a3a2';
 let abi =
 [
 	{
@@ -210,6 +210,44 @@ let abi =
 	},
 	{
 		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "highest",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bytes32"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "myBid",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bytes32"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
 		"inputs": [],
 		"name": "tokenPrice",
 		"outputs": [
@@ -339,12 +377,6 @@ function getToken() {
 
 function getTokenInfo() {
 
-  simpleVote.getTotalToken(function(e,r){
-    document.getElementById('tokens-total').innerHTML = r.toString();
-  });
-  simpleVote.getBalanceTokens(function(e,r){
-    document.getElementById('tokens-sellable').innerHTML = r.toString();
-  });
   simpleVote.getTokenPrice(function(e,r){
     tokenPrice = parseFloat(web3.fromWei(r.toString()));
     document.getElementById('token-cost').innerHTML = tokenPrice + "ETH";

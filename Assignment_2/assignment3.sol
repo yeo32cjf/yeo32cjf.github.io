@@ -1,11 +1,14 @@
 pragma solidity ^0.4.24;
 
-contract simpleVote {
+contract simpleAuction {
     
     struct voter {
         address voterAddress;
         uint tokenBought;
     }
+
+    bytes32[] public highest;   //최고 입찰가 배열
+    bytes32[] public myBid;     //나의 입찰가
     
     mapping (address => voter) public voters; // 투표자들의 주소
     mapping (bytes32 => uint) public votesReceived; // 후보자 득표 수
