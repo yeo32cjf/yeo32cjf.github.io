@@ -382,7 +382,8 @@ function bidForProduct(n) {
 
 	let AuctionTokens = $("#tb_"+getName(n)).val();
 	let highestTokens = $("#highest_"+getName(n)).val();
-	
+	alert(AuctionTokens + "," + highestTokens);
+
 	if(AuctionTokens <= highestTokens)
 	{
 		alert("최대 입찰가보다 높은 가격을 입찰하십시오.");
