@@ -6,7 +6,6 @@ contract simpleAuction {
         address biderAddress;
         uint tokenBought;
     }
-
     
     mapping (address => bider) public biders; // 입찰자들의 정보
     mapping (address => uint[6]) public myBid; //나의 입찰가
@@ -23,12 +22,12 @@ contract simpleAuction {
         balanceTokens = _totalToken;
         tokenPrice = _tokenPrice;
         
-        highest[0] = 1;
-        highest[1] = 2;
-        highest[2] = 3;
-        highest[3] = 4;
-        highest[4] = 5;
-        highest[5] = 6;
+        highest[0] = 10;
+        highest[1] = 10;
+        highest[2] = 10;
+        highest[3] = 10;
+        highest[4] = 10;
+        highest[5] = 10;
     }
     
     function buy() payable public returns (int) 
@@ -53,7 +52,7 @@ contract simpleAuction {
     function Auction(uint candidateName, uint tokenCountForBid) public
     {
         require(tokenCountForBid <= biders[msg.sender].tokenBought);
-        require(highest[candidateName] < biders[msg.sender].tokenBought);
+        require(tokenCountForBid > highest[candidateName]);
         
         highest[candidateName] = tokenCountForBid;
         myBid[msg.sender][candidateName] = tokenCountForBid;
