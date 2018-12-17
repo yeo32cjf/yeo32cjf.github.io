@@ -372,13 +372,13 @@ function getHighestBid() {
   simpleAuction.getHighestValue(function(e,r){
     for(let i=0;i<r.length;i++)
     {
-			document.getElementById("highest_"+getName[i]).innerHTML = r[i].toString();
+			document.getElementById("highest_"+getName(i)).innerHTML = r[i].toString();
     }
 	});
 	simpleAuction.getMyValue(simpleAuction.address,function(e,r){
     for(let i=0;i<r.length;i++)
     {
-			document.getElementById("myself_"+getName[i]).innerHTML = r[i].toString();
+			document.getElementById("myself_"+getName(i)).innerHTML = r[i].toString();
     }
   });
 }
