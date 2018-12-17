@@ -1,114 +1,57 @@
-let contractAddress = '0x2617c42179b1c9a450fff3d4730cf6ad76b74213';
+let contractAddress = '0x5ca5e8525449efe480c280914fa5a6a3f073940d';
 let abi =
 [
 	{
-		"constant": true,
+		"constant": false,
 		"inputs": [
 			{
-				"name": "addr",
-				"type": "address"
-			}
-		],
-		"name": "getMyValue",
-		"outputs": [
-			{
-				"name": "",
+				"name": "candidateName",
 				"type": "uint256"
 			},
 			{
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"name": "",
+				"name": "tokenCountForBid",
 				"type": "uint256"
 			}
 		],
+		"name": "Auction",
+		"outputs": [],
 		"payable": false,
-		"stateMutability": "view",
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
-		"constant": true,
+		"constant": false,
 		"inputs": [],
-		"name": "getTotalToken",
+		"name": "buy",
 		"outputs": [
 			{
 				"name": "",
-				"type": "uint256"
+				"type": "int256"
 			}
 		],
-		"payable": false,
-		"stateMutability": "view",
+		"payable": true,
+		"stateMutability": "payable",
 		"type": "function"
 	},
 	{
-		"constant": true,
-		"inputs": [],
-		"name": "getTokenPrice",
-		"outputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
 		"inputs": [
 			{
-				"name": "",
-				"type": "address"
+				"name": "_totalToken",
+				"type": "uint256"
 			},
 			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "myBid",
-		"outputs": [
-			{
-				"name": "",
+				"name": "_tokenPrice",
 				"type": "uint256"
 			}
 		],
 		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
+		"stateMutability": "nonpayable",
+		"type": "constructor"
 	},
 	{
 		"constant": true,
 		"inputs": [],
-		"name": "totalToken",
-		"outputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "tokenPrice",
+		"name": "balanceTokens",
 		"outputs": [
 			{
 				"name": "",
@@ -143,41 +86,57 @@ let abi =
 		"type": "function"
 	},
 	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "candidateName",
-				"type": "uint256"
-			},
-			{
-				"name": "tokenCountForBid",
-				"type": "uint256"
-			}
-		],
-		"name": "Auction",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
+		"constant": true,
 		"inputs": [],
-		"name": "buy",
+		"name": "getBalanceTokens",
 		"outputs": [
 			{
 				"name": "",
-				"type": "int256"
+				"type": "uint256"
 			}
 		],
-		"payable": true,
-		"stateMutability": "payable",
+		"payable": false,
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
 		"constant": true,
 		"inputs": [],
 		"name": "getHighestValue",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getMyValue",
 		"outputs": [
 			{
 				"name": "",
@@ -224,6 +183,34 @@ let abi =
 	},
 	{
 		"constant": true,
+		"inputs": [],
+		"name": "getTokenPrice",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getTotalToken",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
 		"inputs": [
 			{
 				"name": "",
@@ -243,8 +230,17 @@ let abi =
 	},
 	{
 		"constant": true,
-		"inputs": [],
-		"name": "balanceTokens",
+		"inputs": [
+			{
+				"name": "",
+				"type": "address"
+			},
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "myBid",
 		"outputs": [
 			{
 				"name": "",
@@ -258,7 +254,7 @@ let abi =
 	{
 		"constant": true,
 		"inputs": [],
-		"name": "getBalanceTokens",
+		"name": "tokenPrice",
 		"outputs": [
 			{
 				"name": "",
@@ -270,19 +266,18 @@ let abi =
 		"type": "function"
 	},
 	{
-		"inputs": [
+		"constant": true,
+		"inputs": [],
+		"name": "totalToken",
+		"outputs": [
 			{
-				"name": "_totalToken",
-				"type": "uint256"
-			},
-			{
-				"name": "_tokenPrice",
+				"name": "",
 				"type": "uint256"
 			}
 		],
 		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "constructor"
+		"stateMutability": "view",
+		"type": "function"
 	}
 ];
 
