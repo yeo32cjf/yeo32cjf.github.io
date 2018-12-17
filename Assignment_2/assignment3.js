@@ -382,7 +382,6 @@ function bidForProduct(n) {
 
 	let AuctionTokens = $("#tb_"+getName(n)).val();
 	let highestTokens = $("#highest_"+getName(n)).val();
-	alert(AuctionTokens + "," + highestTokens);
 
 	if(AuctionTokens <= highestTokens)
 	{
