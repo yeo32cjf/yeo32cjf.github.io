@@ -375,7 +375,7 @@ function getHighestBid() {
 			document.getElementById("highest_"+getName(i)).innerHTML = r[i].toString();
     }
 	});
-	simpleAuction.getMyValue(simpleAuction.address,function(e,r){
+	simpleAuction.getMyValue(function(e,r){
     for(let i=0;i<r.length;i++)
     {
 			document.getElementById("myself_"+getName(i)).innerHTML = r[i].toString();
