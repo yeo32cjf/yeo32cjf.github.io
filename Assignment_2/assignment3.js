@@ -347,59 +347,34 @@ function getTokenInfo() {
   });
 }
 
-function getName(n)
-{
-	if(n==0)
-		return "iphone7";
-	else if(n==1)
-		return "iphone8";
-	else if(n==2)
-		return "iphoneX";
-	else if(n==3)
-		return "galaxyS9";
-	else if(n==4)
-		return "galaxyNote9";
-	else if(n==5)
-		return "LGG7";
-}
+getName = ["iphone7","iphone8","iphoneX","galaxyS9","galaxyNote9","LGG7"];
 
 function getHighestBid() {
   simpleAuction.getHighestValue(function(e,r){
     for(let i=0;i<r.length;i++)
     {
-			document.getElementById("highest_"+getName(i)).innerHTML = r[i].toString();
+			document.getElementById("highest_"+getName[i]).innerHTML = r[i].toString();
     }
 	});
 	simpleAuction.getMyValue(function(e,r){
     for(let i=0;i<r.length;i++)
     {
-			document.getElementById("myself_"+getName(i)).innerHTML = r[i].toString();
+			document.getElementById("myself_"+getName[i]).innerHTML = r[i].toString();
     }
   });
 }
 
 function bidForProduct(n) {
 
-	let AuctionTokens = $("#tb_"+getName(n)).val();
-	let highestTokens = $("#highest_"+getName(n)).val();
+	let AuctionTokens = $("#tb_"+getName[i]).val();
+	let highestTokens = $("#highest_"+getName[i]).val();
 
-	if(AuctionTokens <= highestTokens)
-	{
-		alert("최대 입찰가보다 높은 가격을 입찰하십시오.");
-	}
-	else if(AuctionTokens > $("tokenValue").val())
-	{
-		alert("토큰이 부족합니다. 토큰을 더 충전하세요.");
-	}
-	else
-	{
-		$("#msg").html("Auction has been submitted. The Auction count will increment as soon as the Auction is recorded on the blockchain. Please wait.")
-		$("#tb_"+getName(n)).val("");
+	$("#msg").html("Auction has been submitted. The Auction count will increment as soon as the Auction is recorded on the blockchain. Please wait.")
+	$("#tb_"+getName[i]).val("");
 
-		simpleAuction.Auction(n, AuctionTokens, function (e, r){
-			getHighestBid();
-		});
-	}
+	simpleAuction.Auction(n, AuctionTokens, function (e, r){
+		getHighestBid();
+	});
 }
 
 function buyTokens() {
